@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "jednorozec-app": {
+      "hosting": {
+        "jednorozec-app": [
+          "jednorozec-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "jednorozec-app"
+  }
+}
