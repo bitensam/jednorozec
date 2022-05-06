@@ -1,0 +1,30 @@
+a {
+  text-decoration: none;
+  color: rgb(233, 225, 225);
+}
+
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+}
+
+mat-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 1rem;
+
+  .navbar__logo {
+    font-size: 3rem;
+  }
+
+  .navbar__links {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      margin-right: 2.5rem;
+      font-size: 1.2rem;
+    }
+  }
+}
