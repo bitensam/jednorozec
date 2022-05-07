@@ -1,0 +1,20 @@
+<div class="container">
+  <mat-card>
+    <section class="login">
+      <header class="login__header">
+        <h1>Jednorożec</h1>
+      </header>
+      <div class="login__form">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" [formControl]="emailControl" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Hasło</mat-label>
+          <input type="password" [formControl]="passwordControl" matInput />
+        </mat-form-field>
+      </div>
+      <button mat-button color="primary" (click)="login()">Login</button>
+    </section>
+  </mat-card>
+</div>

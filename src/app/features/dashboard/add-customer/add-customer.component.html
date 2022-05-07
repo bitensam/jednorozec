@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="formAddUser">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" type="email" id="email" matInput />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          id="password"
+          matInput
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Rola</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of rolesSelect" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button color="primary" (click)="signUp()">Utwórz</button>
+    </form>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <h1>Lista klientów</h1>
+    </mat-card-header>
+    <div class="customer-list"></div>
+  </mat-card>
+</div>
+{{ formAddUser.value | json }}

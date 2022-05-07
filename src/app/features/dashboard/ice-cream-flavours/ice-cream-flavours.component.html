@@ -1,0 +1,20 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="formAddNewFlavour">
+      <mat-form-field appearance="fill">
+        <mat-label>Dodaj nowy smak</mat-label>
+        <input formControlName="flavour" type="text" id="flavour" matInput />
+      </mat-form-field>
+      <button mat-button color="primary" (click)="addNewFlavour()">
+        Utwórz
+      </button>
+    </form>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <h1>Lista aktywnych smaków lodów</h1>
+    </mat-card-header>
+    <div class="ice-cream-flavours-list"></div>
+  </mat-card>
+</div>
+{{ formAddNewFlavour.value | json }}

@@ -1,0 +1,20 @@
+.container {
+  padding: 4rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  height: 60vh;
+}
+
+.mat-card {
+  padding: 4rem 2rem;
+  height: 100%;
+  background-color: #fab1cf;
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
