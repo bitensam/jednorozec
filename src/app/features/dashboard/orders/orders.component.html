@@ -5,14 +5,12 @@
     </mat-card-header>
     <mat-card-content>
       <div *ngFor="let order of orders">
-        <div *ngFor="let orderByCustomer of order.ordersByCustomer">
-          <p>{{ orderByCustomer.customerEmail }}</p>
-          <div *ngFor="let orderDetails of orderByCustomer.orderDetails">
-            <p>
-              {{ orderDetails.flavour }} {{ orderDetails.quantity }}
-              {{ orderDetails.unit }}
-            </p>
-          </div>
+        <p>{{ order.customerEmail }}</p>
+        <div *ngFor="let orderDetailsItem of order.orderDetails">
+          <p>
+            {{ orderDetailsItem.flavour }} {{ orderDetailsItem.quantity }}
+            {{ orderDetailsItem.unit }}
+          </p>
         </div>
       </div>
     </mat-card-content>
