@@ -14,7 +14,10 @@
     <mat-card-header>
       <h1>Lista aktywnych smaków lodów</h1>
     </mat-card-header>
-    <div class="ice-cream-flavours-list"></div>
+    <mat-card-content *ngIf="iceCreamFlavours$ | async as iceCreamFlavours">
+      <div *ngFor="let iceCreamFlavour of iceCreamFlavours">
+        <p>{{ iceCreamFlavour.flavour }}</p>
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>
-{{ formAddNewFlavour.value | json }}

@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Roles } from 'src/app/shared/user/roles.enum';
-import { AuthService } from '../../auth/auth.service';
+import { User } from 'src/app/shared/user/user.interface';
+
+import { CustomersService } from './customers.service';
 
 @Component({
   selector: 'unicorn-add-customer',
@@ -9,7 +12,7 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./add-customer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddCustomerComponent implements OnInit {
+export class AddCustomerComponent {
   public rolesSelect: Roles[] = [Roles.admin, Roles.customer];
   public formAddUser: FormGroup = this.fb.group({
     email: ['', { validators: [Validators.email, Validators.required] }],
@@ -20,11 +23,14 @@ export class AddCustomerComponent implements OnInit {
     role: ['', { validators: [Validators.required] }],
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  public customers$: Observable<User[]> = this.customersService.getCustomers$();
 
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private customersService: CustomersService
+  ) {}
 
   signUp() {
-    this.authService.signUp(this.formAddUser.value);
+    this.customersService.addCustomer(this.formAddUser.value);
   }
 }

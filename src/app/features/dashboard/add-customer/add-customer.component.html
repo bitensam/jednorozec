@@ -29,7 +29,10 @@
     <mat-card-header>
       <h1>Lista klientów</h1>
     </mat-card-header>
-    <div class="customer-list"></div>
+    <mat-card-content *ngIf="customers$ | async as customers">
+      <div *ngFor="let customer of customers">
+        <span>{{ customer.email }}</span>
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>
-{{ formAddUser.value | json }}

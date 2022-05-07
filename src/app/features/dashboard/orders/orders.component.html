@@ -1,1 +1,26 @@
-<p>orders works!</p>
+<div *ngIf="orders$ | async as orders" class="container">
+  <mat-card>
+    <mat-card-header>
+      <h1>Lista dzisiejszych zamówień</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngFor="let order of orders">
+        <div *ngFor="let orderByCustomer of order.ordersByCustomer">
+          <p>{{ orderByCustomer.customerEmail }}</p>
+          <div *ngFor="let orderDetails of orderByCustomer.orderDetails">
+            <p>
+              {{ orderDetails.flavour }} {{ orderDetails.quantity }}
+              {{ orderDetails.unit }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <h1>Podsumowanie</h1>
+    </mat-card-header>
+    <mat-card-content> </mat-card-content>
+  </mat-card>
+</div>
