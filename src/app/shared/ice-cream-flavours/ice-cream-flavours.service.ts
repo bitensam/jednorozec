@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { BehaviorSubject } from 'rxjs';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { IceCreamFlavour } from './ice-cream-flavour.interface';
 
 // TO DO: INTERFACE, W
 
@@ -8,17 +12,16 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class IceCreamFlavoursService {
-  private activeFlavours: BehaviorSubject<string[]> = new BehaviorSubject<
-    string[]
-  >([]);
+  private iceCreamFlavoursCollection: AngularFirestoreCollection<IceCreamFlavour> =
+    this.fireStore.collection<IceCreamFlavour>('ice-creams');
 
   constructor(private fireStore: AngularFirestore) {}
 
-  public getCurrentActiveFlavours(): string[] {
-    return this.activeFlavours.getValue();
+  public getIceCreamFlavours$(): Observable<IceCreamFlavour[]> {
+    return this.iceCreamFlavoursCollection.valueChanges();
   }
 
-  public addNewFlavour(flavour: string) {
-    this.activeFlavours.next([...this.activeFlavours.value, flavour]);
+  public addNewFlavour(enteredFlavour: IceCreamFlavour) {
+    this.iceCreamFlavoursCollection.add(enteredFlavour);
   }
 }

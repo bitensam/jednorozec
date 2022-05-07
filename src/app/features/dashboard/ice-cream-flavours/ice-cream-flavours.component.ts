@@ -1,5 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { IceCreamFlavour } from 'src/app/shared/ice-cream-flavours/ice-cream-flavour.interface';
+import { IceCreamFlavoursService } from 'src/app/shared/ice-cream-flavours/ice-cream-flavours.service';
 
 @Component({
   selector: 'unicorn-ice-cream-flavours',
@@ -12,7 +15,16 @@ export class IceCreamFlavoursComponent {
     flavour: ['', { validators: [Validators.required] }],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private iceCreamFlavoursService: IceCreamFlavoursService
+  ) {}
 
-  public addNewFlavour() {}
+  public iceCreamFlavours$: Observable<IceCreamFlavour[]> =
+    this.iceCreamFlavoursService.getIceCreamFlavours$();
+
+  public addNewFlavour() {
+    if (this.formAddNewFlavour.invalid) return;
+    this.iceCreamFlavoursService.addNewFlavour(this.formAddNewFlavour.value);
+  }
 }
