@@ -5,8 +5,8 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { AppState } from 'src/app/store/app.state';
-import { setOrders } from 'src/app/store/ordersState/orders.actions';
+import { AppState } from '../../store/app.state';
+import { setOrders } from '../../store/ordersState/orders.actions';
 import { Order } from './order.interface';
 
 @Injectable({

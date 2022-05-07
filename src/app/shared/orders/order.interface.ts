@@ -4,12 +4,8 @@ export interface OrderDetailsItem {
   unit: string;
 }
 
-export interface OrderByCustomer {
-  customerEmail: string;
-  orderDetails: OrderDetailsItem[];
-}
-
 export interface Order {
   dateOfOrder: string;
-  ordersByCustomer: OrderByCustomer[];
+  customerEmail: string;
+  orderDetails: OrderDetailsItem[];
 }
