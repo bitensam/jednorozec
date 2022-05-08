@@ -38,6 +38,7 @@ export class OrdersService {
     ].join('-');
   }
 
+  // TO DO: refacto zeby wysylalo do stora i pobieralo ze stora
   public getTodayOrders$(): Observable<Order[]> {
     return this.fireStore
       .collection<Order>('orders', (ref) =>

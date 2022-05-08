@@ -11,14 +11,13 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { IceCreamFlavoursComponent } from './ice-cream-flavours/ice-cream-flavours.component';
-
 import { AuthGuard } from '../auth/auth.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { Roles } from 'src/app/shared/user/roles.enum';
-
 import { OrdersComponent } from './orders/orders.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { OrderPanelComponent } from '../dashboard/customer-panel/order-panel/order-panel.component';
@@ -89,6 +88,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatCardModule,
     MatSelectModule,
+    FormsModule,
   ],
 })
 export class DashboardModule {}

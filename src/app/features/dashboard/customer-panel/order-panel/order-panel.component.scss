@@ -1,0 +1,7 @@
+.container {
+  padding: 4rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  height: 60vh;
+}

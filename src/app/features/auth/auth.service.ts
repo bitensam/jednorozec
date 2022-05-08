@@ -29,7 +29,6 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
         if (!user) return;
-
         const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(
           `users/${user.uid}`
         );
@@ -41,15 +40,6 @@ export class AuthService {
             this.ngrxStore.dispatch(setUser({ userLogged: user! }));
             this.router.navigate(['dashboard']);
           });
-
-        // userRef.get().subscribe((user) => {
-        //   const userDataFromSnapshot = user.data();
-        //   if (!userDataFromSnapshot) return;
-        //   this.ngrxStore.dispatch(
-        //     setUser({ userLogged: userDataFromSnapshot })
-        //   );
-        //   this.router.navigate(['dashboard']);
-        // });
       });
   }
 
