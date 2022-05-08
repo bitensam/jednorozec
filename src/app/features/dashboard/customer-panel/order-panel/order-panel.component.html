@@ -1,5 +1,9 @@
 <section class="order-panel">
   <div class="container">
+    <button (click)="addLastOrder()" mat-raised-button color="primary">
+      Zamów to co poprzednio
+    </button>
+    <p>LUB</p>
     <form [formGroup]="orderForm" class="form-control">
       <div class="form-control__group">
         <mat-form-field appearance="fill">
@@ -51,22 +55,15 @@
       <div class="form-control__actions">
         <button
           (click)="addToCart()"
-          type="button"
+          type="submit"
           mat-raised-button
           color="primary"
         >
           Dodaj do zamówienia
         </button>
       </div>
-
       <div class="form-control__actions">
         <button mat-raised-button color="accent">Wyczyść zamówienie</button>
-        <button mat-stroked-button color="primary">
-          Zamów to co poprzednio
-        </button>
-        <button type="submit" mat-raised-button color="primary">
-          Wyślij zamówienie
-        </button>
       </div>
       {{ orderForm.value | json }}
     </form>
@@ -77,6 +74,7 @@
       <p *ngFor="let orderItem of orderItemsFromCart">
         {{ orderItem.flavour }} {{ orderItem.quantity }} {{ orderItem.unit }}
       </p>
+      <button mat-raised-button color="primary">Wyślij zamówienie</button>
     </div>
   </div>
 </section>

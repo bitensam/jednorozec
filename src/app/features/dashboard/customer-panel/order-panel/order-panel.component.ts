@@ -34,6 +34,11 @@ export class OrderPanelComponent {
   ) {}
 
   public addToCart() {
-    this.orderFormService.addOrderItemToCart();
+    this.orderFormService.addOrderItemToCart(this.orderForm.value);
+  }
+
+  public addLastOrder() {
+    console.log('klikam');
+    this.orderFormService.addLastOrderToCart();
   }
 }

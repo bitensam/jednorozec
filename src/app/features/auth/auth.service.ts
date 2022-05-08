@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/store/userState/user.actions';
 import { AppState } from 'src/app/store/app.state';
 import { take } from 'rxjs';
+import { setUserLastOrder } from 'src/app/store/ordersState/orders.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,9 @@ export class AuthService {
           .pipe(take(1))
           .subscribe((user) => {
             this.ngrxStore.dispatch(setUser({ userLogged: user! }));
+            this.ngrxStore.dispatch(
+              setUserLastOrder({ lastOrder: user!.lastOrderDetails! })
+            );
             this.router.navigate(['dashboard']);
           });
       });
