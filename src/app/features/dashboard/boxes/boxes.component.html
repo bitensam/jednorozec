@@ -3,11 +3,7 @@
     <form [formGroup]="formAddNewBox">
       <mat-form-field appearance="fill">
         <mat-label>Dodaj nowe opakowanie</mat-label>
-        <input formControlName="size" type="text" id="size" matInput />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Dodaj pojemność opakowania</mat-label>
-        <input formControlName="capacity" type="text" id="capacity" matInput />
+        <input formControlName="boxName" type="text" id="size" matInput />
       </mat-form-field>
       <button mat-button color="primary" (click)="addNewBox()">Utwórz</button>
     </form>
@@ -18,7 +14,7 @@
     </mat-card-header>
     <mat-card-content *ngIf="boxes$ | async as boxes">
       <div *ngFor="let box of boxes">
-        <p>{{ box.size }} {{ box.capacity }} {{ box.unit }}</p>
+        <p>{{ box.name }}</p>
       </div>
     </mat-card-content>
   </mat-card>
