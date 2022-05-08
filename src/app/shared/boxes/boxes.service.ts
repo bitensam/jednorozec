@@ -20,9 +20,7 @@ export class BoxesService {
 
   public addNewBox(enteredFormValue: Box) {
     const newBox = {
-      size: enteredFormValue.size,
-      capacity: enteredFormValue.capacity,
-      unit: 'L',
+      name: enteredFormValue.name,
     };
 
     this.boxesCollection.add(newBox);

@@ -1,11 +1,11 @@
-import { Order } from '../orders/order.interface';
+import { OrderDetailsItem } from '../orders/order.interface';
 import { Roles } from './roles.enum';
 
 export interface User {
   uid: string;
   email: string;
   role: Roles;
-  lastOrder?: Order[];
+  lastOrderDetails?: OrderDetailsItem[];
   lastOrderDate?: string;
   favFlavours?: string[];
 }

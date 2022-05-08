@@ -12,8 +12,7 @@ import { BoxesService } from 'src/app/shared/boxes/boxes.service';
 })
 export class BoxesComponent {
   public formAddNewBox: FormGroup = this.fb.group({
-    size: ['', { validators: [Validators.required] }],
-    capacity: ['', { validators: [Validators.required] }],
+    boxName: ['', { validators: [Validators.required] }],
   });
 
   public boxes$: Observable<Box[]> = this.boxesService.getBoxes$();

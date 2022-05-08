@@ -10,7 +10,6 @@ import { User } from 'src/app/shared/user/user.interface';
 import { Roles } from 'src/app/shared/user/roles.enum';
 import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/store/userState/user.actions';
-import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +53,9 @@ export class AuthService {
             email: user.email!,
             uid: user.uid,
             role: formValue.role,
+            favFlavours: [],
+            lastOrderDate: '',
+            lastOrderDetails: [],
           });
       });
   }
