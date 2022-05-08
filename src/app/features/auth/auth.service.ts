@@ -34,14 +34,22 @@ export class AuthService {
           `users/${user.uid}`
         );
 
-        userRef.get().subscribe((user) => {
-          const userDataFromSnapshot = user.data();
-          if (!userDataFromSnapshot) return;
-          this.ngrxStore.dispatch(
-            setUser({ userLogged: userDataFromSnapshot })
-          );
-          this.router.navigate(['dashboard']);
-        });
+        userRef
+          .valueChanges()
+          .pipe(take(1))
+          .subscribe((user) => {
+            this.ngrxStore.dispatch(setUser({ userLogged: user! }));
+            this.router.navigate(['dashboard']);
+          });
+
+        // userRef.get().subscribe((user) => {
+        //   const userDataFromSnapshot = user.data();
+        //   if (!userDataFromSnapshot) return;
+        //   this.ngrxStore.dispatch(
+        //     setUser({ userLogged: userDataFromSnapshot })
+        //   );
+        //   this.router.navigate(['dashboard']);
+        // });
       });
   }
 

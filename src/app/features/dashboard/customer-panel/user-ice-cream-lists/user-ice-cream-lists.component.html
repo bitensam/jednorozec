@@ -1,12 +1,12 @@
-<section *ngIf="loggedUser$ | async as loggedUser">
-  <div class="flavours__list--favorite">
-    <!-- <mat-card *ngFor="let favFlavour of favFlavours">
+<section class="flavours-list" *ngIf="loggedUser$ | async as loggedUser">
+  <div class="flavours-list__favorite">
+    <mat-card *ngFor="let favFlavour of favFlavours$ | async as favFlavours">
       <mat-card-header>
         <mat-card-title>{{ favFlavour.flavour }}</mat-card-title>
       </mat-card-header>
-    </mat-card> -->
+    </mat-card>
   </div>
-  <div class="flavours__list--all">
+  <div class="flavours-list__all">
     <mat-card *ngFor="let flavour of allFlavours$ | async">
       <mat-card-header>
         <mat-card-title>{{ flavour.flavour }}</mat-card-title>

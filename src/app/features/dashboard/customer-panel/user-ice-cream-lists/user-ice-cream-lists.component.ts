@@ -15,6 +15,7 @@ import { FlavoursListService } from '../flavours-list.service';
 export class UserIceCreamListsComponent {
   public allFlavours$ = this.iceCreamFlavoursService.getIceCreamFlavours$();
   public loggedUser$ = this.authService.getLoggedInUser();
+  public favFlavours$ = this.flavoursListService.getUserFavouriteFlavours$();
 
   constructor(
     private iceCreamFlavoursService: IceCreamFlavoursService,
