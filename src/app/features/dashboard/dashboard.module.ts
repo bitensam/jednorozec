@@ -21,6 +21,9 @@ import { Roles } from 'src/app/shared/user/roles.enum';
 
 import { OrdersComponent } from './orders/orders.component';
 import { BoxesComponent } from './boxes/boxes.component';
+import { OrderPanelComponent } from '../dashboard/customer-panel/order-panel/order-panel.component';
+import { CustomerPanelComponent } from './customer-panel/customer-panel.component';
+import { UserIceCreamListsComponent } from '../dashboard/customer-panel/user-ice-cream-lists/user-ice-cream-lists.component';
 
 const routes: Routes = [
   {
@@ -28,6 +31,12 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'customer-panel',
+        component: CustomerPanelComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [Roles.customer] },
+      },
       {
         path: 'orders',
         component: OrdersComponent,
@@ -61,9 +70,11 @@ const routes: Routes = [
     DashboardComponent,
     AddCustomerComponent,
     IceCreamFlavoursComponent,
-
     OrdersComponent,
     BoxesComponent,
+    OrderPanelComponent,
+    CustomerPanelComponent,
+    UserIceCreamListsComponent,
   ],
   imports: [
     CommonModule,

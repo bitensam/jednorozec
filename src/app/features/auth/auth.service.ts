@@ -10,6 +10,8 @@ import { User } from 'src/app/shared/user/user.interface';
 import { Roles } from 'src/app/shared/user/roles.enum';
 import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/store/userState/user.actions';
+import { AppState } from 'src/app/store/app.state';
+import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,7 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private router: Router,
     private fireStore: AngularFirestore,
-    private ngrxStore: Store
+    private ngrxStore: Store<AppState>
   ) {}
 
   public login({ email, password }: UserCredentials) {
@@ -74,9 +76,16 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       role: user.role,
+      favFlavours: user.favFlavours,
+      lastOrderDate: user.lastOrderDate,
+      lastOrderDetails: user.lastOrderDetails,
     };
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  public getLoggedInUser() {
+    return this.ngrxStore.select(({ user }) => user.userLogged);
   }
 }
