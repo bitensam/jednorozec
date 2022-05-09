@@ -7,6 +7,7 @@ import { BoxesService } from 'src/app/shared/boxes/boxes.service';
 import { IceCreamFlavour } from 'src/app/shared/ice-cream-flavours/ice-cream-flavour.interface';
 import { IceCreamFlavoursService } from 'src/app/shared/ice-cream-flavours/ice-cream-flavours.service';
 import { OrderDetailsItem } from 'src/app/shared/orders/order.interface';
+import { User } from 'src/app/shared/user/user.interface';
 import { FlavoursListService } from '../flavours-list.service';
 import { OrderFormService } from './order-form.service';
 
@@ -49,11 +50,7 @@ export class OrderPanelComponent {
     this.orderFormService.addLastOrderToCart();
   }
 
-  public submitOrder(
-    itemsFromCart: OrderDetailsItem[],
-    userUid: string,
-    userEmail: string
-  ) {
-    this.orderFormService.submitOrder(itemsFromCart, userUid, userEmail);
+  public submitOrder(itemsFromCart: OrderDetailsItem[], loggedUser: User) {
+    this.orderFormService.submitOrder(itemsFromCart, loggedUser);
   }
 }

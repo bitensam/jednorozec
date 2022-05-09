@@ -3,15 +3,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, take } from 'rxjs';
-import { OrderDetailsItem } from 'src/app/shared/orders/order.interface';
-import { OrdersService } from 'src/app/shared/orders/orders.service';
-import { AppState } from 'src/app/store/app.state';
+import { OrderDetailsItem } from '../../../../shared/orders/order.interface';
+import { OrdersService } from '../../../../shared/orders/orders.service';
+import { AppState } from '../../../../store/app.state';
 import {
   setTempOrderFromLast,
   setTempOrders,
-} from 'src/app/store/ordersState/orders.actions';
+  setUserLastOrder,
+} from '../../../../store/ordersState/orders.actions';
 import { Order } from '../../../../shared/orders/order.interface';
-import { updateDoc, doc, getFirestore, arrayUnion } from 'firebase/firestore';
+import { updateDoc, doc, getFirestore } from 'firebase/firestore';
+import { Router } from '@angular/router';
+import { setUser } from 'src/app/store/userState/user.actions';
+import { User } from 'src/app/shared/user/user.interface';
 
 @Injectable()
 export class OrderFormService {
@@ -28,7 +32,8 @@ export class OrderFormService {
     private fb: FormBuilder,
     private ngrxStore: Store<AppState>,
     private ordersService: OrdersService,
-    private fireStore: AngularFirestore
+    private fireStore: AngularFirestore,
+    private router: Router
   ) {}
 
   // TO DO refactor nazw
@@ -64,16 +69,25 @@ export class OrderFormService {
     };
   }
 
-  public submitOrder(
-    itemsFromCart: OrderDetailsItem[],
-    userUid: string,
-    userEmail: string
-  ) {
-    const newOrder = this.completeOrder(itemsFromCart, userEmail);
+  private checkIfUserCanOrder(currentDate: string, lastOrderDate: string) {
+    return currentDate === lastOrderDate ? 'order disabled' : 'order active';
+  }
 
+  public submitOrder(itemsFromCart: OrderDetailsItem[], loggedUser: User) {
+    const currentDate: string = this.ordersService.actualDate;
+    const newOrder = this.completeOrder(itemsFromCart, loggedUser.email);
     const ordersCollection = this.fireStore.collection<Order>('orders');
+    const clientRef = doc(getFirestore(), `users/${loggedUser.uid}`);
 
-    const clientRef = doc(getFirestore(), `users/${userUid}`);
+    // TO DO to debug
+
+    if (
+      this.checkIfUserCanOrder(currentDate, loggedUser.lastOrderDate!) ===
+      'order disabled'
+    ) {
+      alert('Dziś już złożono jedno zamówienie - limit przekroczony');
+      return;
+    }
 
     updateDoc(clientRef, {
       lastOrderDetails: newOrder.orderDetails,
@@ -81,5 +95,11 @@ export class OrderFormService {
     });
 
     ordersCollection.add(newOrder);
+
+    const updatedUser: User = { ...loggedUser, lastOrderDate: currentDate };
+
+    this.ngrxStore.dispatch(setUser({ userLogged: updatedUser }));
+
+    this.router.navigate(['dashboard']);
   }
 }

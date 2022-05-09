@@ -1,14 +1,31 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <div class="navbar__logo"><a [routerLink]="'/'">Lody Jednorożec</a></div>
-    <div class="navbar__links">
-      <a [routerLink]="'customer-panel'">Panel klienta</a>
-      <a [routerLink]="'orders'">Zamówienia</a>
-      <a [routerLink]="'ice-cream-flavours'">Smaki lodów</a>
-      <a [routerLink]="'boxes'">Opakowania</a>
-      <a [routerLink]="'addCustomer'">Klienci</a>
-      <button mat-button (click)="logout()">Wyloguj</button>
-    </div>
+    <button mat-raised-button color="accent" (click)="logout()">Wyloguj</button>
   </mat-toolbar-row>
 </mat-toolbar>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel" class="navbar__linklist">
+  <ng-container *ngIf="userLogged$ | async as userLogged">
+    <ng-container *ngIf="userLogged.role === 'admin'">
+      <a
+        class="navbar__link"
+        mat-tab-link
+        *ngFor="let link of navForAdmin"
+        [routerLink]="link.component"
+      >
+        {{ link.label }}</a
+      >
+    </ng-container>
+    <ng-container *ngIf="userLogged.role === 'customer'">
+      <a
+        class="navbar__link"
+        mat-tab-link
+        *ngFor="let link of navForCustomer"
+        [routerLink]="link.component"
+        >{{ link.label }}</a
+      >
+    </ng-container>
+  </ng-container>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 <router-outlet></router-outlet>

@@ -17,6 +17,8 @@ export class BoxesComponent {
 
   public boxes$: Observable<Box[]> = this.boxesService.getBoxes$();
 
+  public displayedColumns: string[] = ['name'];
+
   constructor(private fb: FormBuilder, private boxesService: BoxesService) {}
 
   public addNewBox() {

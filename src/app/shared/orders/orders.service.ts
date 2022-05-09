@@ -3,11 +3,11 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable, take, tap } from 'rxjs';
 import { AppState } from '../../store/app.state';
 import { setOrders } from '../../store/ordersState/orders.actions';
-import { Order } from './order.interface';
+import { Order, OrderDetailsItem } from './order.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -46,4 +46,44 @@ export class OrdersService {
         })
       );
   }
+
+  private getTodayOrdersValue(): Order[] {
+    let stateValue: Order[] = [];
+
+    this.ngrxStore
+      .pipe(select('orders'), take(1))
+      .subscribe(({ todayOrders }) => {
+        stateValue = todayOrders;
+      });
+
+    return stateValue;
+  }
+
+  // public getSummedTodayOrders() {
+  //   const todayOrders = this.getTodayOrdersValue();
+
+  //   const helper: any = {};
+
+  //   todayOrders.forEach(({ orderDetails }) => {
+  //     orderDetails.forEach((item) => {
+  //       helper[`${item.flavour.toLowerCase()}-${item.unit.toLowerCase()}`] +=
+  //         item.quantity;
+  //       console.log(helper);
+  //     });
+  //   });
+
+  //   const result = todayOrders.forEach(({ orderDetails }) => {
+  //     Object.values(
+  //       orderDetails.reduce((r: any, e) => {
+  //         const key = e.flavour + '-' + e.unit;
+  //         if (!r[key]) r[key] = e;
+  //         else {
+  //           r[key].quantity += e.quantity;
+  //         }
+
+  //         return r;
+  //       }, {})
+  //     );
+  //   });
+  // }
 }

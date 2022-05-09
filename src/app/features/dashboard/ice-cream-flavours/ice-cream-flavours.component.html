@@ -1,23 +1,37 @@
-<div class="container">
+<section class="container">
   <mat-card>
-    <form [formGroup]="formAddNewFlavour">
-      <mat-form-field appearance="fill">
-        <mat-label>Dodaj nowy smak</mat-label>
-        <input formControlName="flavour" type="text" id="flavour" matInput />
-      </mat-form-field>
-      <button mat-button color="primary" (click)="addNewFlavour()">
-        Utwórz
-      </button>
-    </form>
+    <mat-card-title>
+      <h1>Dodaj nowy smak lodów</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="formAddNewFlavour">
+        <mat-form-field appearance="fill">
+          <mat-label>Dodaj nowy smak</mat-label>
+          <input formControlName="flavour" type="text" id="flavour" matInput />
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="addNewFlavour()">
+            Utwórz
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
   </mat-card>
-  <mat-card>
+  <mat-card *ngIf="iceCreamFlavours$ | async as iceCreamFlavours">
     <mat-card-header>
       <h1>Lista aktywnych smaków lodów</h1>
     </mat-card-header>
-    <mat-card-content *ngIf="iceCreamFlavours$ | async as iceCreamFlavours">
-      <div *ngFor="let iceCreamFlavour of iceCreamFlavours">
-        <p>{{ iceCreamFlavour.flavour }}</p>
-      </div>
+    <mat-card-content>
+      <table mat-table [dataSource]="iceCreamFlavours" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Smak loda</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.flavour | uppercaseFirstLetter }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </mat-card-content>
   </mat-card>
-</div>
+</section>

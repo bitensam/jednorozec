@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -7,12 +7,38 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+export class DashboardComponent {
+  public userLogged$ = this.authService.getLoggedInUser();
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {}
 
   public logout() {
     this.authService.logout();
   }
+
+  public navForAdmin = [
+    {
+      label: 'Zamówienia',
+      component: 'orders',
+    },
+    {
+      label: 'Smaki lodów',
+      component: 'ice-cream-flavours',
+    },
+    {
+      label: 'Opakowania',
+      component: 'boxes',
+    },
+    {
+      label: 'Klienci',
+      component: 'addCustomer',
+    },
+  ];
+
+  public navForCustomer = [
+    {
+      label: 'Panel zamówienia',
+      component: 'customer-panel',
+    },
+  ];
 }

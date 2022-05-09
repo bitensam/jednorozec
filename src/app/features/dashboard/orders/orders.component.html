@@ -1,24 +1,34 @@
-<div *ngIf="orders$ | async as orders" class="container">
+<section *ngIf="orders$ | async as orders" class="container">
   <mat-card>
     <mat-card-header>
       <h1>Lista dzisiejszych zamówień</h1>
     </mat-card-header>
-    <mat-card-content>
-      <div *ngFor="let order of orders">
-        <p>{{ order.customerEmail }}</p>
-        <div *ngFor="let orderDetailsItem of order.orderDetails">
-          <p>
-            {{ orderDetailsItem.flavour }} {{ orderDetailsItem.quantity }}
-            {{ orderDetailsItem.unit }}
+    <mat-card-content class="card--order__container">
+      <mat-card class="card--order__item" *ngFor="let order of orders">
+        <mat-card-title>
+          <h3>
+            Klient: <span>{{ order.customerEmail }}</span>
+          </h3>
+        </mat-card-title>
+        <mat-card-content *ngFor="let orderDetailsItem of order.orderDetails">
+          <p class="item__title">
+            {{ orderDetailsItem.flavour | uppercaseFirstLetter }}
           </p>
-        </div>
-      </div>
+          <p class="item__quantity">
+            {{ orderDetailsItem.quantity }} x
+            <span>{{ orderDetailsItem.unit }}</span>
+          </p>
+        </mat-card-content>
+      </mat-card>
     </mat-card-content>
   </mat-card>
   <mat-card>
     <mat-card-header>
       <h1>Podsumowanie</h1>
+      <!-- <div *ngIf="summedOrders$ | async as summedOrders">
+        {{ summedOrders }}
+      </div> -->
     </mat-card-header>
     <mat-card-content> </mat-card-content>
   </mat-card>
-</div>
+</section>

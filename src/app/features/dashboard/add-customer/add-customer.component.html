@@ -1,38 +1,67 @@
 <div class="container">
   <mat-card>
-    <form [formGroup]="formAddUser">
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" type="email" id="email" matInput />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input
-          formControlName="password"
-          type="password"
-          id="password"
-          matInput
-        />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Rola</mat-label>
-        <mat-select formControlName="role">
-          <mat-option *ngFor="let role of rolesSelect" [value]="role">
-            {{ role }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-button color="primary" (click)="signUp()">Utwórz</button>
-    </form>
+    <mat-card-header>
+      <h1>Dodaj nowego użytkownika</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="formAddUser">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" type="email" id="email" matInput />
+        </mat-form-field>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            formControlName="password"
+            type="password"
+            id="password"
+            matInput
+          />
+        </mat-form-field>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Rola</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of rolesSelect" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-card-actions>
+          <button
+            class="btn btn-primary"
+            mat-raised-button
+            color="accent"
+            (click)="signUp()"
+          >
+            Utwórz
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
   </mat-card>
-  <mat-card>
+  <mat-card *ngIf="customers$ | async as customers">
     <mat-card-header>
       <h1>Lista klientów</h1>
     </mat-card-header>
-    <mat-card-content *ngIf="customers$ | async as customers">
-      <div *ngFor="let customer of customers">
-        <span>{{ customer.email }}</span>
-      </div>
+    <mat-card-content>
+      <table mat-table [dataSource]="customers" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>UID</th>
+          <td mat-cell *matCellDef="let element">{{ element.uid }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Rola</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.role | uppercaseFirstLetter }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </mat-card-content>
   </mat-card>
 </div>

@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/auth.service';
 import { IceCreamFlavour } from 'src/app/shared/ice-cream-flavours/ice-cream-flavour.interface';
 import { IceCreamFlavoursService } from 'src/app/shared/ice-cream-flavours/ice-cream-flavours.service';
-import { AppState } from 'src/app/store/app.state';
+import { User } from 'src/app/shared/user/user.interface';
 import { FlavoursListService } from '../flavours-list.service';
 
 @Component({
@@ -13,9 +13,12 @@ import { FlavoursListService } from '../flavours-list.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserIceCreamListsComponent {
-  public allFlavours$ = this.iceCreamFlavoursService.getIceCreamFlavours$();
-  public loggedUser$ = this.authService.getLoggedInUser();
-  public favFlavours$ = this.flavoursListService.getUserFavouriteFlavours$();
+  public allFlavours$: Observable<IceCreamFlavour[]> =
+    this.iceCreamFlavoursService.getIceCreamFlavours$();
+  public loggedUser$: Observable<User | null> =
+    this.authService.getLoggedInUser();
+  public favFlavours$: Observable<IceCreamFlavour[] | undefined> =
+    this.flavoursListService.getUserFavouriteFlavours$();
 
   constructor(
     private iceCreamFlavoursService: IceCreamFlavoursService,
@@ -23,10 +26,10 @@ export class UserIceCreamListsComponent {
     private flavoursListService: FlavoursListService
   ) {}
 
-  public addFlavourToFavourites(userUid: string, flavor: IceCreamFlavour) {
+  public addFlavourToFavourites(loggedUser: User, flavour: IceCreamFlavour) {
     this.flavoursListService.addUpdatedUserFavFlavoursToFirestore(
-      userUid,
-      flavor
+      loggedUser,
+      flavour
     );
   }
 }
