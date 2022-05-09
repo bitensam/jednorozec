@@ -24,15 +24,12 @@ export const ordersReducer = createReducer(
   on(setOrders, (state, { todayOrders }) => {
     return { ...state, todayOrders: todayOrders };
   }),
-
   on(setTempOrders, (state, { tempOrder }) => {
     return { ...state, tempOrders: [...state.tempOrders, tempOrder] };
   }),
-
   on(setUserLastOrder, (state, { lastOrder }) => {
     return { ...state, lastOrder };
   }),
-
   on(setTempOrderFromLast, (state, { tempLastOrder }) => {
     return { ...state, tempOrders: tempLastOrder };
   })

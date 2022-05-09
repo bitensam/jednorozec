@@ -15,6 +15,8 @@ export class IceCreamFlavoursComponent {
     flavour: ['', { validators: [Validators.required] }],
   });
 
+  public displayedColumns: string[] = ['name'];
+
   constructor(
     private fb: FormBuilder,
     private iceCreamFlavoursService: IceCreamFlavoursService

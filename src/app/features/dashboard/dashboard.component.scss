@@ -17,14 +17,9 @@ mat-toolbar-row {
   .navbar__logo {
     font-size: 3rem;
   }
+}
 
-  .navbar__links {
-    display: flex;
-    justify-content: space-between;
-
-    a {
-      margin-right: 2.5rem;
-      font-size: 1.2rem;
-    }
-  }
+.navbar__link {
+  color: rgb(18, 89, 194);
+  font-size: 1.5rem;
 }

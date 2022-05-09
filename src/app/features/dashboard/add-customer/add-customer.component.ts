@@ -13,6 +13,7 @@ import { CustomersService } from './customers.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCustomerComponent {
+  public displayedColumns: string[] = ['id', 'email', 'role'];
   public rolesSelect: Roles[] = [Roles.admin, Roles.customer];
   public formAddUser: FormGroup = this.fb.group({
     email: ['', { validators: [Validators.email, Validators.required] }],

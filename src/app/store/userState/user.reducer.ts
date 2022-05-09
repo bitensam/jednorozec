@@ -15,6 +15,7 @@ const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
   on(setUser, (state, { userLogged }) => {
+    console.log(state, userLogged);
     return { ...state, userLogged: userLogged, isAuthenticated: true };
   })
 );

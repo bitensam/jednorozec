@@ -23,6 +23,9 @@ import { BoxesComponent } from './boxes/boxes.component';
 import { OrderPanelComponent } from '../dashboard/customer-panel/order-panel/order-panel.component';
 import { CustomerPanelComponent } from './customer-panel/customer-panel.component';
 import { UserIceCreamListsComponent } from '../dashboard/customer-panel/user-ice-cream-lists/user-ice-cream-lists.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { UppercaseFirstLetterPipe } from 'src/app/shared/uppercase-first-letter.pipe';
 
 const routes: Routes = [
   {
@@ -74,6 +77,7 @@ const routes: Routes = [
     OrderPanelComponent,
     CustomerPanelComponent,
     UserIceCreamListsComponent,
+    UppercaseFirstLetterPipe,
   ],
   imports: [
     CommonModule,
@@ -89,6 +93,8 @@ const routes: Routes = [
     MatCardModule,
     MatSelectModule,
     FormsModule,
+    MatTabsModule,
+    MatTableModule,
   ],
 })
 export class DashboardModule {}

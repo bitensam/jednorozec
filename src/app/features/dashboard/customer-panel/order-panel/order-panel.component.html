@@ -75,9 +75,7 @@
         {{ orderItem.flavour }} {{ orderItem.quantity }} {{ orderItem.unit }}
       </p>
       <button
-        (click)="
-          submitOrder(orderItemsFromCart, loggedUser.uid, loggedUser.email)
-        "
+        (click)="submitOrder(orderItemsFromCart, loggedUser)"
         mat-raised-button
         color="primary"
       >

@@ -1,0 +1,49 @@
+.container {
+  padding: 4rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  max-height: 60vh;
+}
+
+mat-card {
+  padding: 4rem 2rem;
+  height: 100%;
+  font-size: 1.5rem;
+
+  &:nth-of-type(1) {
+    background-color: rgba(119, 236, 231, 0.842);
+  }
+
+  &:nth-of-type(2) {
+    background-color: rgb(173, 101, 221);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  span {
+    font-weight: 700;
+  }
+
+  .card--order__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1rem;
+    column-gap: 1rem;
+  }
+
+  .card--order__item {
+    padding: 1rem;
+    background-color: rgb(232, 245, 252);
+
+    &.item__flavour,
+    .item__quantity {
+      font-weight: 700;
+      &span {
+        font-weight: 400;
+      }
+    }
+  }
+}

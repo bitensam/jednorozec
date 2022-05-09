@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
+    console.log('klikam');
     const email: string = this.emailControl.value;
     const password: string = this.passwordControl.value;
     this.authService.login({ email, password });
