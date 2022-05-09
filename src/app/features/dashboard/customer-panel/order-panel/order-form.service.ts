@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, map, Observable, switchMap, take, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { OrderDetailsItem } from 'src/app/shared/orders/order.interface';
 import { OrdersService } from 'src/app/shared/orders/orders.service';
 import { AppState } from 'src/app/store/app.state';
@@ -14,6 +11,7 @@ import {
   setTempOrders,
 } from 'src/app/store/ordersState/orders.actions';
 import { Order } from '../../../../shared/orders/order.interface';
+import { updateDoc, doc, getFirestore, arrayUnion } from 'firebase/firestore';
 
 @Injectable()
 export class OrderFormService {
@@ -39,10 +37,7 @@ export class OrderFormService {
   }
 
   public getOrderItemsFromCart$(): Observable<OrderDetailsItem[]> {
-    return this.ngrxStore.select(({ orders }) => {
-      console.log(orders.tempOrders);
-      return orders.tempOrders;
-    });
+    return this.ngrxStore.select(({ orders }) => orders.tempOrders);
   }
 
   public addLastOrderToCart() {
@@ -54,44 +49,14 @@ export class OrderFormService {
       });
   }
 
-  // TO DO !
-  // public submitOrder() {
-  //   const order: Order = {
-  //     dateOfOrder: this.ordersService.actualDate,
-  //     customerEmail: this.ngrxStore
-  //       .select(({ user }) => user.userLogged?.email)
-  //       .pipe(take(1))
-  //       .subscribe((user) => {
-  //         user;
-  //       }),
-  //     orderDetails: this.getOrderItemsFromCart$()
-  //       .pipe(take(1))
-  //       .subscribe((order) => order),
-  //   };
+  public completeOrder(
+    itemsFromCart: OrderDetailsItem[],
+    userEmail: string
+  ): Order {
+    const currentDate: string = this.ordersService.actualDate;
+    const orderItemsFromCart: OrderDetailsItem[] = itemsFromCart;
+    const customerEmail: string = userEmail;
 
-  //   const ordersRef: AngularFirestoreDocument<Order> = this.fireStore.doc(
-  //     `users/${user.uid}`
-  //   );
-  // }
-
-  public completeOrder(): Order {
-    let currentDate: string = this.ordersService.actualDate;
-    let orderItemsFromCart: OrderDetailsItem[] = [];
-    let customerEmail: string = '';
-
-    this.ngrxStore
-      .pipe(select('orders'), take(1))
-      .subscribe(({ tempOrders }) => {
-        orderItemsFromCart = [...tempOrders];
-      });
-
-    this.ngrxStore.pipe(select('user'), take(1)).subscribe(({ userLogged }) => {
-      customerEmail = userLogged!.email;
-    });
-
-    console.log(orderItemsFromCart);
-    console.log(customerEmail);
-    console.log(currentDate);
     return {
       dateOfOrder: currentDate,
       customerEmail: customerEmail,
@@ -99,10 +64,21 @@ export class OrderFormService {
     };
   }
 
-  public submitOrder() {
-    const newOrder = this.completeOrder();
+  public submitOrder(
+    itemsFromCart: OrderDetailsItem[],
+    userUid: string,
+    userEmail: string
+  ) {
+    const newOrder = this.completeOrder(itemsFromCart, userEmail);
 
     const ordersCollection = this.fireStore.collection<Order>('orders');
+
+    const clientRef = doc(getFirestore(), `users/${userUid}`);
+
+    updateDoc(clientRef, {
+      lastOrderDetails: newOrder.orderDetails,
+      lastOrderDate: newOrder.dateOfOrder,
+    });
 
     ordersCollection.add(newOrder);
   }

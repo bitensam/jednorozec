@@ -13,9 +13,6 @@ import { Order } from './order.interface';
   providedIn: 'root',
 })
 export class OrdersService {
-  private ordersCollection: AngularFirestoreCollection<Order> =
-    this.fireStore.collection<Order>('orders');
-
   public actualDate: string;
 
   constructor(
@@ -23,7 +20,6 @@ export class OrdersService {
     private ngrxStore: Store<AppState>
   ) {
     this.actualDate = this.formatDate(new Date());
-    console.log(this.actualDate);
   }
 
   private padTo2Digits(num: number) {
@@ -38,7 +34,6 @@ export class OrdersService {
     ].join('-');
   }
 
-  // TO DO: refacto zeby wysylalo do stora i pobieralo ze stora
   public getTodayOrders$(): Observable<Order[]> {
     return this.fireStore
       .collection<Order>('orders', (ref) =>

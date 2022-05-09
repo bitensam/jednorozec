@@ -22,22 +22,18 @@ const initialState: OrdersState = {
 export const ordersReducer = createReducer(
   initialState,
   on(setOrders, (state, { todayOrders }) => {
-    console.log(state, todayOrders);
     return { ...state, todayOrders: todayOrders };
   }),
 
   on(setTempOrders, (state, { tempOrder }) => {
-    console.log(state, tempOrder);
     return { ...state, tempOrders: [...state.tempOrders, tempOrder] };
   }),
 
   on(setUserLastOrder, (state, { lastOrder }) => {
-    console.log(state, lastOrder);
     return { ...state, lastOrder };
   }),
 
   on(setTempOrderFromLast, (state, { tempLastOrder }) => {
-    console.log(state, tempLastOrder);
     return { ...state, tempOrders: tempLastOrder };
   })
 );

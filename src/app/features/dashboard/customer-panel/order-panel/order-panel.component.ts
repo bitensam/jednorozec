@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/features/auth/auth.service';
 import { Box } from 'src/app/shared/boxes/box.interface';
 import { BoxesService } from 'src/app/shared/boxes/boxes.service';
 import { IceCreamFlavour } from 'src/app/shared/ice-cream-flavours/ice-cream-flavour.interface';
@@ -17,12 +18,18 @@ import { OrderFormService } from './order-form.service';
   providers: [OrderFormService],
 })
 export class OrderPanelComponent {
+  public orderForm: FormGroup = this.orderFormService.orderForm;
+
+  public loggedUser$ = this.authService.getLoggedInUser();
+
   public favFlavours$: Observable<IceCreamFlavour[] | undefined> =
     this.flavoursListService.getUserFavouriteFlavours$();
+
   public allFlavours$: Observable<IceCreamFlavour[]> =
     this.iceCreamFlavoursService.getIceCreamFlavours$();
+
   public boxes$: Observable<Box[]> = this.boxesService.getBoxes$();
-  public orderForm: FormGroup = this.orderFormService.orderForm;
+
   public orderItemsFromCart$: Observable<OrderDetailsItem[]> =
     this.orderFormService.getOrderItemsFromCart$();
 
@@ -30,7 +37,8 @@ export class OrderPanelComponent {
     private flavoursListService: FlavoursListService,
     private iceCreamFlavoursService: IceCreamFlavoursService,
     private boxesService: BoxesService,
-    private orderFormService: OrderFormService
+    private orderFormService: OrderFormService,
+    private authService: AuthService
   ) {}
 
   public addToCart() {
@@ -38,11 +46,14 @@ export class OrderPanelComponent {
   }
 
   public addLastOrder() {
-    console.log('klikam');
     this.orderFormService.addLastOrderToCart();
   }
 
-  public submitOrder() {
-    this.orderFormService.submitOrder();
+  public submitOrder(
+    itemsFromCart: OrderDetailsItem[],
+    userUid: string,
+    userEmail: string
+  ) {
+    this.orderFormService.submitOrder(itemsFromCart, userUid, userEmail);
   }
 }
