@@ -74,7 +74,9 @@
       <p *ngFor="let orderItem of orderItemsFromCart">
         {{ orderItem.flavour }} {{ orderItem.quantity }} {{ orderItem.unit }}
       </p>
-      <button mat-raised-button color="primary">Wyślij zamówienie</button>
+      <button (click)="submitOrder()" mat-raised-button color="primary">
+        Wyślij zamówienie
+      </button>
     </div>
   </div>
 </section>

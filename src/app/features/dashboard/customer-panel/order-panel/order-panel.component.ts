@@ -41,4 +41,8 @@ export class OrderPanelComponent {
     console.log('klikam');
     this.orderFormService.addLastOrderToCart();
   }
+
+  public submitOrder() {
+    this.orderFormService.submitOrder();
+  }
 }
