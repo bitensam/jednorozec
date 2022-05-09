@@ -1,0 +1,26 @@
+<section class="flavours-list" *ngIf="loggedUser$ | async as loggedUser">
+  <div class="flavours-list__favorite">
+    <mat-card *ngFor="let favFlavour of favFlavours$ | async as favFlavours">
+      <mat-card-header>
+        <mat-card-title>{{ favFlavour.flavour }}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <div class="flavours-list__all">
+    <mat-card *ngFor="let flavour of allFlavours$ | async">
+      <mat-card-header>
+        <mat-card-title>{{ flavour.flavour }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-footer>
+        <button
+          (click)="addFlavourToFavourites(loggedUser.uid, flavour)"
+          mat-raised-button
+          color="primary"
+          type="button"
+        >
+          Dodaj do ulubionych
+        </button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</section>

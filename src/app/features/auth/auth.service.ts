@@ -10,6 +10,9 @@ import { User } from 'src/app/shared/user/user.interface';
 import { Roles } from 'src/app/shared/user/roles.enum';
 import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/store/userState/user.actions';
+import { AppState } from 'src/app/store/app.state';
+import { take } from 'rxjs';
+import { setUserLastOrder } from 'src/app/store/ordersState/orders.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +22,7 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private router: Router,
     private fireStore: AngularFirestore,
-    private ngrxStore: Store
+    private ngrxStore: Store<AppState>
   ) {}
 
   public login({ email, password }: UserCredentials) {
@@ -27,19 +30,20 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
         if (!user) return;
-
         const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(
           `users/${user.uid}`
         );
 
-        userRef.get().subscribe((user) => {
-          const userDataFromSnapshot = user.data();
-          if (!userDataFromSnapshot) return;
-          this.ngrxStore.dispatch(
-            setUser({ userLogged: userDataFromSnapshot })
-          );
-          this.router.navigate(['dashboard']);
-        });
+        userRef
+          .valueChanges()
+          .pipe(take(1))
+          .subscribe((user) => {
+            this.ngrxStore.dispatch(setUser({ userLogged: user! }));
+            this.ngrxStore.dispatch(
+              setUserLastOrder({ lastOrder: user!.lastOrderDetails! })
+            );
+            this.router.navigate(['dashboard']);
+          });
       });
   }
 
@@ -74,9 +78,16 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       role: user.role,
+      favFlavours: user.favFlavours,
+      lastOrderDate: user.lastOrderDate,
+      lastOrderDetails: user.lastOrderDetails,
     };
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  public getLoggedInUser() {
+    return this.ngrxStore.select(({ user }) => user.userLogged);
   }
 }

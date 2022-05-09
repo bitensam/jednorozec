@@ -11,16 +11,18 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { IceCreamFlavoursComponent } from './ice-cream-flavours/ice-cream-flavours.component';
-
 import { AuthGuard } from '../auth/auth.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { Roles } from 'src/app/shared/user/roles.enum';
-
 import { OrdersComponent } from './orders/orders.component';
 import { BoxesComponent } from './boxes/boxes.component';
+import { OrderPanelComponent } from '../dashboard/customer-panel/order-panel/order-panel.component';
+import { CustomerPanelComponent } from './customer-panel/customer-panel.component';
+import { UserIceCreamListsComponent } from '../dashboard/customer-panel/user-ice-cream-lists/user-ice-cream-lists.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,12 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'customer-panel',
+        component: CustomerPanelComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [Roles.customer] },
+      },
       {
         path: 'orders',
         component: OrdersComponent,
@@ -61,9 +69,11 @@ const routes: Routes = [
     DashboardComponent,
     AddCustomerComponent,
     IceCreamFlavoursComponent,
-
     OrdersComponent,
     BoxesComponent,
+    OrderPanelComponent,
+    CustomerPanelComponent,
+    UserIceCreamListsComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +88,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatCardModule,
     MatSelectModule,
+    FormsModule,
   ],
 })
 export class DashboardModule {}
