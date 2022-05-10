@@ -44,6 +44,7 @@ export class OrderPanelComponent {
 
   public addToCart() {
     this.orderFormService.addOrderItemToCart(this.orderForm.value);
+    this.orderForm.reset();
   }
 
   public addLastOrder() {

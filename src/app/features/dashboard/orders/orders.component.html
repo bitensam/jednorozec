@@ -25,9 +25,13 @@
   <mat-card>
     <mat-card-header>
       <h1>Podsumowanie</h1>
+
       <!-- <div *ngIf="summedOrders$ | async as summedOrders">
         {{ summedOrders }}
       </div> -->
+      <button (click)="sum(orders)" type="button" mat-raised-button>
+        Sumuj
+      </button>
     </mat-card-header>
     <mat-card-content> </mat-card-content>
   </mat-card>

@@ -12,7 +12,9 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 export class OrdersComponent {
   public orders$: Observable<Order[]> = this.ordersService.getTodayOrders$();
 
-  // public summedOrders$ = this.ordersService.getSummedTodayOrders();
+  public sum(orders: Order[]) {
+    this.ordersService.getSummedTodayOrders(orders);
+  }
 
   constructor(private ordersService: OrdersService) {}
 }

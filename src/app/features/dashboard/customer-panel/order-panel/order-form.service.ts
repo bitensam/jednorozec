@@ -19,9 +19,6 @@ import { User } from 'src/app/shared/user/user.interface';
 
 @Injectable()
 export class OrderFormService {
-  private cart: BehaviorSubject<Order | null> =
-    new BehaviorSubject<Order | null>(null);
-
   public readonly orderForm: FormGroup = this.fb.group({
     flavour: ['', { validators: [Validators.required, Validators.max(1)] }],
     quantity: [1, { validators: [Validators.required, Validators.max(30)] }],
