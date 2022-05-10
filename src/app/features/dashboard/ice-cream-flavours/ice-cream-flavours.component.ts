@@ -28,5 +28,6 @@ export class IceCreamFlavoursComponent {
   public addNewFlavour() {
     if (this.formAddNewFlavour.invalid) return;
     this.iceCreamFlavoursService.addNewFlavour(this.formAddNewFlavour.value);
+    this.formAddNewFlavour.reset();
   }
 }

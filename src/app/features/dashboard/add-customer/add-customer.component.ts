@@ -33,5 +33,6 @@ export class AddCustomerComponent {
 
   signUp() {
     this.customersService.addCustomer(this.formAddUser.value);
+    this.formAddUser.reset();
   }
 }

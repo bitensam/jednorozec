@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/auth.service';
 import { Box } from 'src/app/shared/boxes/box.interface';
@@ -20,6 +20,8 @@ import { OrderFormService } from './order-form.service';
 })
 export class OrderPanelComponent {
   public orderForm: FormGroup = this.orderFormService.orderForm;
+
+  public displayedColumns: string[] = ['flavour', 'quantity', 'unit'];
 
   public loggedUser$ = this.authService.getLoggedInUser();
 
@@ -43,7 +45,21 @@ export class OrderPanelComponent {
   ) {}
 
   public addToCart() {
+    if (this.orderForm.invalid) return;
     this.orderFormService.addOrderItemToCart(this.orderForm.value);
+    this.orderForm.reset();
+  }
+
+  get favFlavoursCntrl() {
+    return this.orderFormService.orderForm.controls[
+      'favFlavours'
+    ] as FormControl;
+  }
+
+  get allFlavoursCntrl() {
+    return this.orderFormService.orderForm.controls[
+      'allFlavours'
+    ] as FormControl;
   }
 
   public addLastOrder() {
@@ -52,5 +68,9 @@ export class OrderPanelComponent {
 
   public submitOrder(itemsFromCart: OrderDetailsItem[], loggedUser: User) {
     this.orderFormService.submitOrder(itemsFromCart, loggedUser);
+  }
+
+  public clearForm() {
+    this.orderForm.reset();
   }
 }

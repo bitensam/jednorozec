@@ -13,7 +13,9 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class CustomersService {
   private customersCollection: AngularFirestoreCollection<User> =
-    this.fireStore.collection<User>('users');
+    this.fireStore.collection<User>('users', (ref) =>
+      ref.where('role', '==', 'customer')
+    );
 
   public getCustomers$(): Observable<User[]> {
     return this.customersCollection.valueChanges();
