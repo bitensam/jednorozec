@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Order, OrderDetailsItem } from 'src/app/shared/orders/order.interface';
 import {
+  clearTempOrders,
   setOrders,
   setTempOrderFromLast,
   setTempOrders,
@@ -33,5 +34,8 @@ export const ordersReducer = createReducer(
   }),
   on(setTempOrderFromLast, (state, { tempLastOrder }) => {
     return { ...state, tempOrders: tempLastOrder };
+  }),
+  on(clearTempOrders, (state) => {
+    return { ...state, tempOrders: [] };
   })
 );

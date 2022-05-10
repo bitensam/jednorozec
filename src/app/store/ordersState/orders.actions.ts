@@ -20,3 +20,5 @@ export const setTempOrderFromLast = createAction(
   '[orders] etTempOrderFromLast',
   props<{ tempLastOrder: OrderDetailsItem[] }>()
 );
+
+export const clearTempOrders = createAction('[orders] clearTempOrders');

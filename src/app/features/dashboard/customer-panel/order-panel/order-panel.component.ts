@@ -74,4 +74,8 @@ export class OrderPanelComponent {
   public clearForm() {
     this.orderForm.reset();
   }
+
+  public clearCart() {
+    this.orderFormService.clearCart();
+  }
 }
