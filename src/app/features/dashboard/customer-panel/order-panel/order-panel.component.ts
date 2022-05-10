@@ -48,6 +48,7 @@ export class OrderPanelComponent {
     if (this.orderForm.invalid) return;
     this.orderFormService.addOrderItemToCart(this.orderForm.value);
     this.orderForm.reset();
+    this.orderForm.controls['flavour'].markAsPristine();
   }
 
   get favFlavoursCntrl() {

@@ -18,10 +18,16 @@ export class IceCreamFlavoursService {
   constructor(private fireStore: AngularFirestore) {}
 
   public getIceCreamFlavours$(): Observable<IceCreamFlavour[]> {
-    return this.iceCreamFlavoursCollection.valueChanges();
+    return this.iceCreamFlavoursCollection.valueChanges({
+      idField: 'flavourId',
+    });
   }
 
   public addNewFlavour(enteredFlavour: IceCreamFlavour) {
     this.iceCreamFlavoursCollection.add(enteredFlavour);
+  }
+
+  public deleteFlavour(id: string) {
+    this.iceCreamFlavoursCollection.doc(id).delete();
   }
 }
