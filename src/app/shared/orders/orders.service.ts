@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, of, take, tap } from 'rxjs';
 import { AppState } from '../../store/app.state';
 import { setOrders } from '../../store/ordersState/orders.actions';
-import { Order, OrderDetailsItem } from './order.interface';
+import { Order } from './order.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -47,26 +47,11 @@ export class OrdersService {
       );
   }
 
-  // public getSummedTodayOrders(orders: Order[]) {
-  //   const results: any = {};
-  //   orders.forEach((order) => {
-  //     const { flavour, unit, quantity } = order.orderDetails[0];
-  //     const id = `${flavour}-${unit}`;
-  //     if (results[id]) {
-  //       results[id] = results[id] + quantity;
-  //     } else {
-  //       results[id] = quantity;
-  //     }
-  //   });
-  //   console.log(results);
-  //   return results;
-  // }
-
   public getSummedTodayOrders(orders: Order[]) {
     const results: any = {};
     orders.forEach(({ orderDetails }) => {
       orderDetails.forEach((orderItem) => {
-        const id = orderItem.flavour;
+        const id = orderItem.flavour.toLowerCase();
         if (results[id]) {
           results[id] = results[id] + +orderItem.unit * +orderItem.quantity;
         } else {
@@ -74,7 +59,7 @@ export class OrdersService {
         }
       });
     });
-    console.log(results);
-    return results;
+    console.log(Object.entries(results));
+    return Object.entries(results);
   }
 }

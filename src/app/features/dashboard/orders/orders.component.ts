@@ -11,9 +11,12 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 })
 export class OrdersComponent {
   public orders$: Observable<Order[]> = this.ordersService.getTodayOrders$();
+  // to do generyk
+  public summedOrders: [string, unknown][] = [];
+  public displayedColumns: string[] = ['flavour', 'value'];
 
   public sum(orders: Order[]) {
-    this.ordersService.getSummedTodayOrders(orders);
+    this.summedOrders = this.ordersService.getSummedTodayOrders(orders);
   }
 
   constructor(private ordersService: OrdersService) {}

@@ -22,6 +22,7 @@ const initialState: OrdersState = {
 export const ordersReducer = createReducer(
   initialState,
   on(setOrders, (state, { todayOrders }) => {
+    console.log(state, todayOrders);
     return { ...state, todayOrders: todayOrders };
   }),
   on(setTempOrders, (state, { tempOrder }) => {
