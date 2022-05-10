@@ -62,6 +62,11 @@ export class AuthService {
     console.log(userLogged);
     if (!userLogged) return;
     this.ngrxStore.dispatch(setUser({ userLogged: userLogged }));
+    if (userLogged && userLogged!.role === 'admin') {
+      this.router.navigate(['dashboard/orders']);
+    } else if (userLogged && userLogged!.role === 'customer') {
+      this.router.navigate(['dashboard/customer-panel']);
+    }
   }
 
   public signUp(formValue: { email: string; password: string; role: Roles }) {
