@@ -24,7 +24,7 @@ export class BoxesComponent {
 
   public addNewBox() {
     if (this.formAddNewBox.invalid) return;
-
     this.boxesService.addNewBox(this.formAddNewBox.value);
+    this.formAddNewBox.reset();
   }
 }

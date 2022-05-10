@@ -26,6 +26,10 @@ import { UserIceCreamListsComponent } from '../dashboard/customer-panel/user-ice
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { UppercaseFirstLetterPipe } from 'src/app/shared/uppercase-first-letter.pipe';
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
 
 const routes: Routes = [
   {
@@ -95,6 +99,9 @@ const routes: Routes = [
     FormsModule,
     MatTabsModule,
     MatTableModule,
+  ],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
 })
 export class DashboardModule {}

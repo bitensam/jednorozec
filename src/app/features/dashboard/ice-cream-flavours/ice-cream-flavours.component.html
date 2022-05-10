@@ -4,13 +4,22 @@
       <h1>Dodaj nowy smak lodów</h1>
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="formAddNewFlavour">
+      <form
+        [formGroup]="formAddNewFlavour"
+        name="formAddNewFlavour"
+        (ngSubmit)="addNewFlavour()"
+      >
         <mat-form-field appearance="fill">
           <mat-label>Dodaj nowy smak</mat-label>
           <input formControlName="flavour" type="text" id="flavour" matInput />
         </mat-form-field>
         <mat-card-actions>
-          <button mat-raised-button color="accent" (click)="addNewFlavour()">
+          <button
+            type="submit"
+            mat-raised-button
+            color="accent"
+            [disabled]="formAddNewFlavour.invalid"
+          >
             Utwórz
           </button>
         </mat-card-actions>

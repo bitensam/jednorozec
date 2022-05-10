@@ -12,11 +12,12 @@ import { Box } from './box.interface';
 export class BoxesService {
   private boxesCollection: AngularFirestoreCollection<Box> =
     this.fireStore.collection<Box>('boxes');
+
+  constructor(private fireStore: AngularFirestore) {}
+
   public getBoxes$(): Observable<Box[]> {
     return this.boxesCollection.valueChanges();
   }
-
-  constructor(private fireStore: AngularFirestore) {}
 
   public addNewBox(enteredFormValue: Box) {
     const newBox = {

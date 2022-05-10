@@ -1,86 +1,123 @@
 <section *ngIf="loggedUser$ | async as loggedUser" class="order-panel">
   <div class="container">
-    <button (click)="addLastOrder()" mat-raised-button color="primary">
-      Zamów to co poprzednio
-    </button>
-    <p>LUB</p>
-    <form [formGroup]="orderForm" class="form-control">
-      <div class="form-control__group">
-        <mat-form-field appearance="fill">
-          <mat-label>Ulubione smaki</mat-label>
-          <mat-select formControlName="flavour">
-            <mat-option
-              *ngFor="let favFlavour of favFlavours$ | async as favFlavours"
-              [value]="favFlavour.flavour"
+    <mat-card>
+      <mat-card-actions class="form-control__action">
+        <button (click)="addLastOrder()" mat-raised-button color="primary">
+          Zamów to co poprzednio
+        </button>
+      </mat-card-actions>
+      <mat-card-subtitle>
+        <p>LUB</p>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <form [formGroup]="orderForm" name="orderForm" (ngSubmit)="addToCart()">
+          <div class="form-control__group">
+            <mat-form-field appearance="fill">
+              <mat-label>Ulubione smaki</mat-label>
+              <mat-select formControlName="flavour">
+                <mat-option
+                  *ngFor="let favFlavour of favFlavours$ | async as favFlavours"
+                  [value]="favFlavour.flavour"
+                >
+                  {{ favFlavour.flavour | uppercaseFirstLetter }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Wszystkie smaki</mat-label>
+              <mat-select formControlName="flavourControl">
+                <mat-option
+                  *ngFor="let flavour of allFlavours$ | async as allFlavours"
+                  [value]="flavour.flavour"
+                >
+                  {{ flavour.flavour | uppercaseFirstLetter }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-control__group">
+            <mat-form-field appearance="fill">
+              <mat-label>Ilość pudełek</mat-label>
+              <input
+                formControlName="quantity"
+                type="number"
+                min="1"
+                step="1"
+                matInput
+              />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Rodzaj pudełka</mat-label>
+              <mat-select formControlName="unit">
+                <mat-option
+                  *ngFor="let box of boxes$ | async as boxes"
+                  [value]="box.value"
+                >
+                  {{ box.name | uppercaseFirstLetter }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-card-actions class="form-control__actions">
+            <button
+              type="submit"
+              mat-raised-button
+              color="accent"
+              [disabled]="orderForm.invalid"
             >
-              {{ favFlavour.flavour }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Wszystkie smaki</mat-label>
-          <mat-select formControlName="flavour">
-            <mat-option
-              *ngFor="let flavour of allFlavours$ | async as allFlavours"
-              [value]="flavour.flavour"
+              Dodaj do zamówienia
+            </button>
+            <button
+              (click)="clearForm()"
+              type="button"
+              mat-raised-button
+              color="warn"
             >
-              {{ flavour.flavour }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="form-control__group">
-        <mat-form-field appearance="fill">
-          <mat-label>Ilość pudełek</mat-label>
-          <input
-            formControlName="quantity"
-            type="number"
-            min="1"
-            step="1"
-            matInput
-          />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Rodzaj pudełka</mat-label>
-          <mat-select formControlName="unit">
-            <mat-option
-              *ngFor="let box of boxes$ | async as boxes"
-              [value]="box.value"
-            >
-              {{ box.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="form-control__actions">
+              Wyczyść formularz
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="orderItemsFromCart$ | async as orderItemsFromCart">
+      <mat-card-content>
+        <table
+          mat-table
+          [dataSource]="orderItemsFromCart"
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="flavour">
+            <th mat-header-cell *matHeaderCellDef>Smak</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.flavour | uppercaseFirstLetter }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Ilość</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.quantity }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef>Ilość</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.unit }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+      <mat-card-actions class="form-control__actions">
         <button
-          (click)="addToCart()"
-          type="submit"
+          (click)="submitOrder(orderItemsFromCart, loggedUser)"
           mat-raised-button
           color="primary"
         >
-          Dodaj do zamówienia
+          Wyślij zamówienie
         </button>
-      </div>
-      <div class="form-control__actions">
-        <button mat-raised-button color="accent">Wyczyść zamówienie</button>
-      </div>
-      {{ orderForm.value | json }}
-    </form>
-    <div
-      *ngIf="orderItemsFromCart$ | async as orderItemsFromCart"
-      class="order__summary"
-    >
-      <p *ngFor="let orderItem of orderItemsFromCart">
-        {{ orderItem.flavour }} {{ orderItem.quantity }} {{ orderItem.unit }}
-      </p>
-      <button
-        (click)="submitOrder(orderItemsFromCart, loggedUser)"
-        mat-raised-button
-        color="primary"
-      >
-        Wyślij zamówienie
-      </button>
-    </div>
+        <button mat-raised-button color="warn">Wyczyść zamówienie</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </section>

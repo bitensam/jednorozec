@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { OrderDetailsItem } from '../../../../shared/orders/order.interface';
 import { OrdersService } from '../../../../shared/orders/orders.service';
 import { AppState } from '../../../../store/app.state';
 import {
   setTempOrderFromLast,
   setTempOrders,
-  setUserLastOrder,
 } from '../../../../store/ordersState/orders.actions';
 import { Order } from '../../../../shared/orders/order.interface';
 import { updateDoc, doc, getFirestore } from 'firebase/firestore';
@@ -22,7 +21,7 @@ export class OrderFormService {
   public readonly orderForm: FormGroup = this.fb.group({
     flavour: ['', { validators: [Validators.required, Validators.max(1)] }],
     quantity: [1, { validators: [Validators.required, Validators.max(30)] }],
-    unit: ['box 1L', { validators: [Validators.required] }],
+    unit: ['', { validators: [Validators.required] }],
   });
 
   constructor(
@@ -85,6 +84,10 @@ export class OrderFormService {
       alert('Dziś już złożono jedno zamówienie - limit przekroczony');
       return;
     }
+
+    alert(
+      'Dziękuję za złożenie zamówienia. Lody do odbioru w dniu jutrzejszym.'
+    );
 
     updateDoc(clientRef, {
       lastOrderDetails: newOrder.orderDetails,

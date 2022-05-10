@@ -4,7 +4,11 @@
       <h1>Dodaj nowe opakowanie</h1>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="formAddNewBox">
+      <form
+        [formGroup]="formAddNewBox"
+        name="formAddNewBox"
+        (ngSubmit)="addNewBox()"
+      >
         <mat-form-field color="accent" appearance="outline">
           <mat-label for="name">Nazwa</mat-label>
           <input formControlName="name" type="text" id="name" matInput />
@@ -14,13 +18,19 @@
           <input
             type="number"
             min="100"
+            step="100"
             formControlName="value"
             id="value"
             matInput
           />
         </mat-form-field>
         <mat-card-actions>
-          <button mat-raised-button color="accent" (click)="addNewBox()">
+          <button
+            type="submit"
+            mat-raised-button
+            color="accent"
+            [disabled]="formAddNewBox.invalid"
+          >
             Utwórz
           </button>
         </mat-card-actions>

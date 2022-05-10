@@ -4,7 +4,7 @@
       <h1>Dodaj nowego klienta</h1>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="formAddUser">
+      <form [formGroup]="formAddUser" name="formAddUser" (ngSubmit)="signUp()">
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Email</mat-label>
           <input formControlName="email" type="email" id="email" matInput />
@@ -28,10 +28,11 @@
         </mat-form-field>
         <mat-card-actions>
           <button
+            type="submit"
             class="btn btn-primary"
             mat-raised-button
             color="accent"
-            (click)="signUp()"
+            [disabled]="formAddUser.invalid"
           >
             Utwórz
           </button>
