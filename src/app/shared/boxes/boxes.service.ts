@@ -16,7 +16,7 @@ export class BoxesService {
   constructor(private fireStore: AngularFirestore) {}
 
   public getBoxes$(): Observable<Box[]> {
-    return this.boxesCollection.valueChanges();
+    return this.boxesCollection.valueChanges({ idField: 'boxId' });
   }
 
   public addNewBox(enteredFormValue: Box) {
@@ -26,5 +26,9 @@ export class BoxesService {
     };
 
     this.boxesCollection.add(newBox);
+  }
+
+  public deleteBox(id: string) {
+    this.boxesCollection.doc(id).delete();
   }
 }

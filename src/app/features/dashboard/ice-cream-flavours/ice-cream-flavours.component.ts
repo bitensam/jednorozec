@@ -15,7 +15,7 @@ export class IceCreamFlavoursComponent {
     flavour: ['', { validators: [Validators.required] }],
   });
 
-  public displayedColumns: string[] = ['name'];
+  public displayedColumns: string[] = ['name', 'action'];
 
   constructor(
     private fb: FormBuilder,
@@ -29,5 +29,9 @@ export class IceCreamFlavoursComponent {
     if (this.formAddNewFlavour.invalid) return;
     this.iceCreamFlavoursService.addNewFlavour(this.formAddNewFlavour.value);
     this.formAddNewFlavour.reset();
+  }
+
+  public deleteFlavour(id: string) {
+    this.iceCreamFlavoursService.deleteFlavour(id);
   }
 }

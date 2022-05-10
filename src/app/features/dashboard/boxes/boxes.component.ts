@@ -18,7 +18,7 @@ export class BoxesComponent {
 
   public boxes$: Observable<Box[]> = this.boxesService.getBoxes$();
 
-  public displayedColumns: string[] = ['name', 'value'];
+  public displayedColumns: string[] = ['name', 'value', 'actions'];
 
   constructor(private fb: FormBuilder, private boxesService: BoxesService) {}
 
@@ -26,5 +26,9 @@ export class BoxesComponent {
     if (this.formAddNewBox.invalid) return;
     this.boxesService.addNewBox(this.formAddNewBox.value);
     this.formAddNewBox.reset();
+  }
+
+  public deleteBox(id: string) {
+    this.boxesService.deleteBox(id);
   }
 }
