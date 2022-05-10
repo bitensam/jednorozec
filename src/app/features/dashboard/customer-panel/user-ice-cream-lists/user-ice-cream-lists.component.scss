@@ -1,10 +1,13 @@
 .flavours-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 2rem;
 
   &__all {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(5rem, 7rem);
     row-gap: 1.5rem;
     column-gap: 1.5rem;
   }
@@ -12,7 +15,18 @@
   &__favorite {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(5rem, 7rem);
     row-gap: 1.5rem;
     column-gap: 1.5rem;
+  }
+
+  .mat-card-title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mat-card-actions {
+    display: flex;
+    justify-content: center;
   }
 }

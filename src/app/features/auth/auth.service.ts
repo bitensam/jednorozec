@@ -12,7 +12,10 @@ import { Store } from '@ngrx/store';
 import { setUser } from 'src/app/store/userState/user.actions';
 import { AppState } from 'src/app/store/app.state';
 import { take } from 'rxjs';
-import { setUserLastOrder } from 'src/app/store/ordersState/orders.actions';
+import {
+  clearTempOrders,
+  setUserLastOrder,
+} from 'src/app/store/ordersState/orders.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +26,9 @@ export class AuthService {
     private router: Router,
     private fireStore: AngularFirestore,
     private ngrxStore: Store<AppState>
-  ) {}
+  ) {
+    this.authorize();
+  }
 
   public login({ email, password }: UserCredentials) {
     return this.fireAuth
@@ -38,16 +43,27 @@ export class AuthService {
           .valueChanges()
           .pipe(take(1))
           .subscribe((user) => {
+            localStorage.setItem('user', JSON.stringify(user));
             this.ngrxStore.dispatch(setUser({ userLogged: user! }));
             this.ngrxStore.dispatch(
               setUserLastOrder({ lastOrder: user!.lastOrderDetails! })
             );
-            this.router.navigate(['dashboard']);
+            if (user && user!.role === 'admin') {
+              this.router.navigate(['dashboard/orders']);
+            } else if (user && user!.role === 'customer') {
+              this.router.navigate(['dashboard/customer-panel']);
+            }
           });
       });
   }
 
-  // ToDo typowanie
+  public authorize() {
+    const userLogged: User = JSON.parse(String(localStorage.getItem('user')));
+    console.log(userLogged);
+    if (!userLogged) return;
+    this.ngrxStore.dispatch(setUser({ userLogged: userLogged }));
+  }
+
   public signUp(formValue: { email: string; password: string; role: Roles }) {
     return this.fireAuth
       .createUserWithEmailAndPassword(formValue.email, formValue.password)
@@ -65,6 +81,8 @@ export class AuthService {
   }
 
   public logout() {
+    this.ngrxStore.dispatch(clearTempOrders());
+    localStorage.removeItem('user');
     return this.fireAuth.signOut().then(() => {
       this.router.navigate(['auth']);
     });

@@ -7,6 +7,7 @@ import { OrderDetailsItem } from '../../../../shared/orders/order.interface';
 import { OrdersService } from '../../../../shared/orders/orders.service';
 import { AppState } from '../../../../store/app.state';
 import {
+  clearTempOrders,
   setTempOrderFromLast,
   setTempOrders,
 } from '../../../../store/ordersState/orders.actions';
@@ -100,6 +101,10 @@ export class OrderFormService {
 
     this.ngrxStore.dispatch(setUser({ userLogged: updatedUser }));
 
-    this.router.navigate(['dashboard']);
+    this.clearCart();
+  }
+
+  public clearCart() {
+    this.ngrxStore.dispatch(clearTempOrders());
   }
 }

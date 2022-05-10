@@ -32,4 +32,8 @@ export class UserIceCreamListsComponent {
       flavour
     );
   }
+
+  public removeUserFavFlavour(userLogged: User, flavour: IceCreamFlavour) {
+    this.flavoursListService.removeUserFavFlavour(userLogged, flavour);
+  }
 }
