@@ -12,12 +12,13 @@ import { BoxesService } from 'src/app/shared/boxes/boxes.service';
 })
 export class BoxesComponent {
   public formAddNewBox: FormGroup = this.fb.group({
-    boxName: ['', { validators: [Validators.required] }],
+    name: ['', { validators: [Validators.required] }],
+    value: [100, { validators: [Validators.required] }],
   });
 
   public boxes$: Observable<Box[]> = this.boxesService.getBoxes$();
 
-  public displayedColumns: string[] = ['name'];
+  public displayedColumns: string[] = ['name', 'value'];
 
   constructor(private fb: FormBuilder, private boxesService: BoxesService) {}
 

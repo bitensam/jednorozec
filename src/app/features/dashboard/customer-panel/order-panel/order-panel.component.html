@@ -45,7 +45,7 @@
           <mat-select formControlName="unit">
             <mat-option
               *ngFor="let box of boxes$ | async as boxes"
-              [value]="box.name"
+              [value]="box.value"
             >
               {{ box.name }}
             </mat-option>

@@ -21,6 +21,7 @@ export class BoxesService {
   public addNewBox(enteredFormValue: Box) {
     const newBox = {
       name: enteredFormValue.name,
+      value: enteredFormValue.value,
     };
 
     this.boxesCollection.add(newBox);
