@@ -8,6 +8,9 @@
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Email</mat-label>
           <input formControlName="email" type="email" id="email" matInput />
+          <p class="alert" *ngIf="email.invalid && email.touched">
+            Niepoprawny format emaila.
+          </p>
         </mat-form-field>
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Password</mat-label>
@@ -17,6 +20,9 @@
             id="password"
             matInput
           />
+          <p class="alert" *ngIf="password.invalid && password.touched">
+            Hasło powinno składać się z conajmniej 6 znaków
+          </p>
         </mat-form-field>
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Rola</mat-label>
