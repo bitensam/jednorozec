@@ -24,16 +24,7 @@ export class BoxesService {
       name: enteredFormValue.name,
       value: enteredFormValue.value,
     };
-
-    if (
-      this.fireStore.collection<Box>('boxes', (ref) =>
-        ref.where('name', '==', enteredFormValue.name)
-      )
-    ) {
-      alert('Box o takiej nazwie już jest w bazie danych');
-      return;
-    }
-
+    alert('Nowe pudełko dodane');
     this.boxesCollection.add(newBox);
   }
 
