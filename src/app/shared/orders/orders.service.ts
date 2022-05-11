@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
-import { select, Store } from '@ngrx/store';
-import { Observable, of, take, tap } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
 import { AppState } from '../../store/app.state';
 import { setOrders } from '../../store/ordersState/orders.actions';
 import { Order } from './order.interface';
@@ -59,7 +56,6 @@ export class OrdersService {
         }
       });
     });
-    console.log(Object.entries(results));
     return Object.entries(results);
   }
 }

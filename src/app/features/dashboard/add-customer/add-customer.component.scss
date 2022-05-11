@@ -12,11 +12,11 @@
   font-size: 1.5rem;
 
   &:nth-of-type(1) {
-    background-color: rgba(119, 236, 231, 0.842);
+    background-color: #9adcff;
   }
 
   &:nth-of-type(2) {
-    background-color: rgb(173, 101, 221);
+    background-color: #fff89a;
   }
 
   form {
@@ -43,10 +43,36 @@
 
   table {
     width: 100%;
-    background: rgba(241, 229, 248, 0.842);
+    background: #ffddee;
   }
 
   .mat-column-email {
     font-weight: bold;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 2rem 0;
+    grid-template-columns: 1fr;
+
+    mat-card {
+      padding: 2rem 1rem;
+    }
+  }
+  mat-card-content {
+    width: 100%;
+  }
+  table {
+    width: 100%;
+
+    td {
+      font-size: 0.6rem;
+    }
+  }
+  mat-card-actions {
+    width: 100%;
+  }
+  input {
+    font-size: 0.9rem;
   }
 }

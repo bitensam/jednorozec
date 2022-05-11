@@ -1,8 +1,8 @@
 <section *ngIf="orders$ | async as orders" class="container">
   <mat-card>
-    <mat-card-header>
+    <mat-card-title>
       <h1>Lista dzisiejszych zamówień</h1>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content class="card--order__container">
       <mat-card class="card--order__item" *ngFor="let order of orders">
         <mat-card-title>
@@ -23,9 +23,9 @@
     </mat-card-content>
   </mat-card>
   <mat-card>
-    <mat-card-header>
+    <mat-card-title>
       <h1>Podsumowanie</h1>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content>
       <table mat-table [dataSource]="summedOrders" class="mat-elevation-z8">
         <ng-container matColumnDef="flavour">

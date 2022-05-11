@@ -59,7 +59,6 @@ export class AuthService {
 
   public authorize() {
     const userLogged: User = JSON.parse(String(localStorage.getItem('user')));
-    console.log(userLogged);
     if (!userLogged) return;
     this.ngrxStore.dispatch(setUser({ userLogged: userLogged }));
     if (userLogged && userLogged!.role === 'admin') {

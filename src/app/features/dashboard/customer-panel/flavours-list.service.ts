@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IceCreamFlavour } from 'src/app/shared/ice-cream-flavours/ice-cream-flavour.interface';
 import { updateDoc, doc, getFirestore, arrayUnion } from 'firebase/firestore';
-import { map, Observable, take, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { User } from 'src/app/shared/user/user.interface';
@@ -29,8 +29,6 @@ export class FlavoursListService {
       favFlavours: arrayUnion(flavour),
     });
   }
-
-  //ew. debug
 
   public getUserFavouriteFlavours$(): Observable<
     IceCreamFlavour[] | undefined

@@ -25,6 +25,15 @@ export class BoxesService {
       value: enteredFormValue.value,
     };
 
+    if (
+      this.fireStore.collection<Box>('boxes', (ref) =>
+        ref.where('name', '==', enteredFormValue.name)
+      )
+    ) {
+      alert('Box o takiej nazwie już jest w bazie danych');
+      return;
+    }
+
     this.boxesCollection.add(newBox);
   }
 
