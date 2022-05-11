@@ -1,8 +1,8 @@
 <section class="container">
   <mat-card>
-    <mat-card-header>
+    <mat-card-title>
       <h1>Dodaj nowe opakowanie</h1>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content>
       <form
         [formGroup]="formAddNewBox"
@@ -38,9 +38,9 @@
     </mat-card-content>
   </mat-card>
   <mat-card *ngIf="boxes$ | async as boxes">
-    <mat-card-header>
+    <mat-card-title>
       <h1>Lista aktywnych opakowań</h1>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content>
       <table mat-table [dataSource]="boxes" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
