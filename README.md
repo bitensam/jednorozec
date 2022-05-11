@@ -3,6 +3,7 @@ CREDENTIALS:
 CUSTOMER:
 
 e: user@user.pl pass: user1234
+e: user2@user.pl pass: user1234
 
 ADMIN
 
