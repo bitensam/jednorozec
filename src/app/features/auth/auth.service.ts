@@ -54,6 +54,9 @@ export class AuthService {
               this.router.navigate(['dashboard/customer-panel']);
             }
           });
+      })
+      .catch(() => {
+        alert('Nie ma takiego użytkownika');
       });
   }
 
