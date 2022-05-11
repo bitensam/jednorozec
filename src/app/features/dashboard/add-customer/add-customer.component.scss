@@ -29,9 +29,17 @@
     }
   }
 
+  .alert {
+    color: red;
+    position: absolute;
+    bottom: -2rem;
+    font-size: 0.8rem;
+  }
+
   mat-form-field {
     width: 100%;
     font-size: 1.1rem;
+    position: relative;
   }
 
   mat-card-header {

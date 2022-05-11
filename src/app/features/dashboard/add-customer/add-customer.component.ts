@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/app/shared/user/roles.enum';
 import { User } from 'src/app/shared/user/user.interface';
@@ -30,6 +35,14 @@ export class AddCustomerComponent {
     private fb: FormBuilder,
     private customersService: CustomersService
   ) {}
+
+  public get email() {
+    return this.formAddUser.controls['email'] as FormControl;
+  }
+
+  public get password() {
+    return this.formAddUser.controls['password'] as FormControl;
+  }
 
   signUp() {
     this.customersService.addCustomer(this.formAddUser.value);

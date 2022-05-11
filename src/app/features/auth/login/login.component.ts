@@ -17,6 +17,7 @@ export class LoginComponent {
   login() {
     const email: string = this.emailControl.value;
     const password: string = this.passwordControl.value;
+
     this.authService.login({ email, password });
   }
 }
