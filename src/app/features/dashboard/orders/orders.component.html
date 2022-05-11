@@ -4,13 +4,14 @@
       <h1>Lista dzisiejszych zamówień</h1>
     </mat-card-title>
     <mat-card-content class="card--order__container">
-      <mat-card class="card--order__item" *ngFor="let order of orders">
-        <mat-card-title>
-          <h3>
-            Klient: <span>{{ order.customerEmail }}</span>
-          </h3>
-        </mat-card-title>
-        <mat-card-content *ngFor="let orderDetailsItem of order.orderDetails">
+      <div class="card--order__item" *ngFor="let order of orders">
+        <h3>
+          Klient: <span>{{ order.customerEmail }}</span>
+        </h3>
+        <div
+          class="item__content"
+          *ngFor="let orderDetailsItem of order.orderDetails"
+        >
           <p class="item__title">
             {{ orderDetailsItem.flavour | uppercaseFirstLetter }}
           </p>
@@ -18,15 +19,15 @@
             {{ orderDetailsItem.quantity }} x
             <span>{{ orderDetailsItem.unit }} ml</span>
           </p>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
   <mat-card>
     <mat-card-title>
       <h1>Podsumowanie</h1>
     </mat-card-title>
-    <mat-card-content>
+    <mat-card-content class="table-wrapper">
       <table mat-table [dataSource]="summedOrders" class="mat-elevation-z8">
         <ng-container matColumnDef="flavour">
           <th mat-header-cell *matHeaderCellDef>Smak loda</th>
