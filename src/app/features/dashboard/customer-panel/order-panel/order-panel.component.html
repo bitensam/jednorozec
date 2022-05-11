@@ -109,10 +109,8 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="unit">
-            <th mat-header-cell *matHeaderCellDef>Ilość</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.unit }}
-            </td>
+            <th mat-header-cell *matHeaderCellDef>Jednostka</th>
+            <td mat-cell *matCellDef="let element">{{ element.unit }} ml</td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
