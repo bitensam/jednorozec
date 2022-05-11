@@ -11,7 +11,7 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 })
 export class OrdersComponent {
   public orders$: Observable<Order[]> = this.ordersService.getTodayOrders$();
-  // to do generyk
+  // sorki Kamil - nie umiałem inaczej :((
   public summedOrders: [string, unknown][] = [];
   public displayedColumns: string[] = ['flavour', 'value'];
 

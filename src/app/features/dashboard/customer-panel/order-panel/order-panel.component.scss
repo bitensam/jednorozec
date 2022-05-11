@@ -1,5 +1,5 @@
 .container {
-  padding: 4rem 1rem;
+  padding: 4rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 2rem;
@@ -12,11 +12,11 @@
   font-size: 1.5rem;
 
   &:nth-of-type(1) {
-    background-color: rgba(119, 236, 231, 0.842);
+    background-color: #fff89a;
   }
 
   &:nth-of-type(2) {
-    background-color: rgb(173, 101, 221);
+    background-color: #9adcff;
   }
 
   form {
@@ -38,7 +38,7 @@
 
   table {
     width: 100%;
-    background: rgba(241, 229, 248, 0.842);
+    background: #ffddee;
   }
   .mat-column-flavour {
     font-weight: bold;
@@ -67,4 +67,21 @@ mat-card-subtitle {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 2rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 2rem 0;
+    grid-template-columns: 1fr;
+
+    mat-card {
+      padding: 2rem 0.5rem;
+    }
+  }
+  p {
+    font-size: 1rem;
+  }
+  .mat-raised-button {
+    font-size: 0.7rem;
+  }
 }

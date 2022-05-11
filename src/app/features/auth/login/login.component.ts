@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
@@ -8,16 +8,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  emailControl = new FormControl('');
-  passwordControl = new FormControl('');
+export class LoginComponent {
+  public emailControl = new FormControl('');
+  public passwordControl = new FormControl('');
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
-
   login() {
-    console.log('klikam');
     const email: string = this.emailControl.value;
     const password: string = this.passwordControl.value;
     this.authService.login({ email, password });

@@ -31,6 +31,14 @@ export class CustomersService {
     password: string;
     role: Roles;
   }) {
+    if (
+      this.fireStore.collection<User>('users', (ref) =>
+        ref.where('email', '==', formValue.email)
+      )
+    ) {
+      alert('Użytkownik o takim adresie email już jest w bazie danych');
+      return;
+    }
     this.authService.signUp(formValue);
   }
 }

@@ -13,7 +13,6 @@ import {
 } from '../../../../store/ordersState/orders.actions';
 import { Order } from '../../../../shared/orders/order.interface';
 import { updateDoc, doc, getFirestore } from 'firebase/firestore';
-import { Router } from '@angular/router';
 import { setUser } from 'src/app/store/userState/user.actions';
 import { User } from 'src/app/shared/user/user.interface';
 
@@ -29,8 +28,7 @@ export class OrderFormService {
     private fb: FormBuilder,
     private ngrxStore: Store<AppState>,
     private ordersService: OrdersService,
-    private fireStore: AngularFirestore,
-    private router: Router
+    private fireStore: AngularFirestore
   ) {}
 
   // TO DO refactor nazw

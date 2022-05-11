@@ -23,3 +23,17 @@ mat-toolbar-row {
   color: rgb(18, 89, 194);
   font-size: 1.5rem;
 }
+
+@media screen and (max-width: 768px) {
+  mat-toolbar-row {
+    padding: 2rem 0.5rem;
+
+    .navbar__logo {
+      font-size: 1.5rem;
+    }
+  }
+
+  .navbar__link {
+    font-size: 0.9rem;
+  }
+}
