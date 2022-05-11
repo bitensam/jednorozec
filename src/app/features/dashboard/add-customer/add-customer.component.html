@@ -41,9 +41,9 @@
     </mat-card-content>
   </mat-card>
   <mat-card *ngIf="customers$ | async as customers">
-    <mat-card-header>
+    <mat-card-title>
       <h1>Lista klientów</h1>
-    </mat-card-header>
+    </mat-card-title>
     <mat-card-content>
       <table mat-table [dataSource]="customers" class="mat-elevation-z8">
         <ng-container matColumnDef="id">

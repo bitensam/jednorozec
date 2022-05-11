@@ -2,12 +2,10 @@
   padding: 4rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
-  max-height: 60vh;
 }
 
 .mat-card {
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   height: 100%;
   font-size: 1.5rem;
 
@@ -44,6 +42,10 @@
   table {
     width: 100%;
     background: #ffddee;
+  }
+
+  .mat-column-name {
+    font-weight: bold;
   }
 }
 

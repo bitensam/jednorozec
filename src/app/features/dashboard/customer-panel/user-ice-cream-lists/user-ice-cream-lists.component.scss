@@ -1,8 +1,8 @@
 .flavours-list {
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
+  column-gap: 1rem;
   row-gap: 2rem;
 
   &__all {
@@ -32,7 +32,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1220px) {
   .flavours-list {
     grid-template-columns: 1fr;
 
